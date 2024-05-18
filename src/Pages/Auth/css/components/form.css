@@ -1,17 +1,19 @@
-body {
-  background-image: url("../../../../c19001be3a43f63f0aebf634b63a7326.jpg");
+.co {
+  background-image: url("../../../../sj.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
-
 .form {
-  background-image: linear-gradient(110deg, white 30%, transparent 50%),
+  background-image: linear-gradient(110deg, white 33%, transparent 50%),
     url("../../../../d764c70776b64e523cb4eea2f322db96.gif");
   background-position: right center;
   background-blend-mode: screen;
   background-size: 80%;
   background-repeat: no-repeat;
-  width: 65%;
+  width: 60%;
   height: 28rem;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(189, 181, 181, 0.856);
@@ -46,7 +48,7 @@ body {
   width: 80%;
   margin-bottom: 20px;
   font-family: "Lato", sans-serif;
-  box-shadow: 0 0 10px rgba(121, 164, 184, 0.822) inset;
+  box-shadow: 0 0 10px rgba(171, 204, 219, 0.822) inset;
 }
 .custom-form {
   width: 50%;
@@ -64,15 +66,80 @@ body {
   visibility: hidden;
   top: 20px;
 }
-.inputi {
-}
+
 a {
   margin-left: 17px;
   color: rgb(87, 87, 247);
   direction: none;
 }
-h1 {
+.custom-form h1 {
   margin-left: 80px;
   margin-bottom: 40px;
   color: rgb(45, 45, 95);
+}
+.forma h2,
+.opt h2,
+.reset h2 {
+  margin-left: 130px;
+  margin-bottom: 10px;
+  color: rgb(18, 18, 32);
+}
+.opt h2 {
+  margin-left: 110px;
+}
+.forma label {
+  margin-left: 100px;
+  margin-bottom: 20px;
+}
+.forma input {
+  margin-right: 30px;
+  margin-top: 20px;
+}
+.forma button {
+  margin-left: 160px;
+  margin-top: 10px;
+}
+.opt button {
+  margin-left: 116px;
+  margin-top: 10px;
+}
+.opt input {
+  width: 45px;
+  height: 50px;
+}
+.parent-otp,
+.reset {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.reset {
+  flex-direction: column;
+  margin: 18px;
+}
+.reset button {
+  width: 40%;
+  margin-left: 127px;
+  margin-top: 8px;
+}
+.reset h2 {
+  margin-left: 110px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+.reset p {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+}
+.reset input {
+  margin-top: 2px;
+  margin-bottom: 0px;
+  width: 330px;
+  height: 50px;
+  margin-right: 40px;
+}
+.input-otp {
+  text-align: center;
+  font-size: 16px;
 }

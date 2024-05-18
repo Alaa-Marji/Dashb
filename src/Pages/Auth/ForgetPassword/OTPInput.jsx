@@ -40,47 +40,28 @@ function OTPInput({ onSubmit, setCode }) {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: "50px",
-        marginBottom: "4px",
-      }}
-    >
-      <img
-        src="./undraw_certification_re_ifll (2).svg"
-        className="im"
-        alt="Login"
-      />
-      <div className="titleh">
-        <h1 style={{ marginBottom: "20px", marginLeft: "80px" }}>
-          Enter Code:
-        </h1>
-        <p>Please enter the 6-digit code sent to your email:</p>
+    <form className="opt" onSubmit={handleSubmit}>
+      <h2>Enter Code:</h2>
+      <p>Please enter the 6-digit code sent to your email:</p>
+      <div className="parent-otp">
+        {otp.map((digit, index) => (
+          <input
+            className="input-otp"
+            key={index}
+            type="text"
+            maxLength={1}
+            value={digit}
+            onChange={(e) => handleChange(index, e)}
+            onKeyDown={(e) => handleKeyDown(index, e)}
+            ref={(ref) => (inputRefs.current[index] = ref)}
+          />
+        ))}
       </div>
-      <form onSubmit={handleSubmit}>
-        <div className="parent-otp">
-          {otp.map((digit, index) => (
-            <input
-              className="input-otp"
-              key={index}
-              type="text"
-              maxLength={1}
-              value={digit}
-              onChange={(e) => handleChange(index, e)}
-              onKeyDown={(e) => handleKeyDown(index, e)}
-              ref={(ref) => (inputRefs.current[index] = ref)}
-            />
-          ))}
-        </div>
-        <button type="submit" className="butt">
-          Submit
-        </button>
-        {err !== "" && <span className="err">{err}</span>}
-      </form>
-    </div>
+      <button type="submit" className=" btn btn-primary">
+        Submit
+      </button>
+      {err !== "" && <span className="err">{err}</span>}
+    </form>
   );
 }
 

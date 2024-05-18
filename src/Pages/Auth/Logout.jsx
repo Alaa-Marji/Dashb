@@ -25,9 +25,11 @@ export default function Logout({ handleLogout }) {
   return (
     <button
       style={{
-        background: "transparent",
-        color: "primary",
         minHeight: 48,
+        border: "none",
+        background: "transparent",
+        justifyContent: open ? "initial" : "center",
+        padding: 2.5,
       }}
       onClick={handleLogoutClick}
     >

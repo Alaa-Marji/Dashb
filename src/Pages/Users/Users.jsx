@@ -92,54 +92,57 @@ const Users = () => {
       headerAlign: "center",
 
       renderCell: ({ row: { access } }) => (
-        <Box
-          sx={{
-            p: "5px",
-            width: "99px",
-            borderRadius: "3px",
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "space-evenly",
-            marginLeft: "130px",
-            marginTop: "10px",
-            backgroundColor:
-              access === "Admin"
-                ? theme.palette.primary.dark
-                : access === "Manager"
-                ? theme.palette.secondary.dark
-                : access === "Company"
-                ? "grey"
-                : "#3da58a",
-          }}
-        >
-          {access === "Admin" && (
-            <AdminPanelSettingsOutlined
-              sx={{ color: "#fff" }}
-              fontSize="small"
-            />
-          )}
-          {access === "Manager" && (
-            <SecurityOutlined sx={{ color: "#fff" }} fontSize="small" />
-          )}
-          {access === "Company" && (
-            <BusinessCenter
-              sx={{ color: "#fff", fontSize: "18px" }}
-              fontSize="small"
-            />
-          )}
-          {access === "User" && (
-            <LockOpenOutlined sx={{ color: "#fff" }} fontSize="small" />
-          )}
-          <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-            {access}
-          </Typography>
-        </Box>
+        <>
+          <Box
+            sx={{
+              p: "5px",
+              width: "99px",
+              borderRadius: "3px",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "space-evenly",
+              marginLeft: "130px",
+              marginTop: "10px",
+              backgroundColor:
+                access === "Admin"
+                  ? theme.palette.primary.dark
+                  : access === "Manager"
+                  ? theme.palette.secondary.dark
+                  : access === "Company"
+                  ? "grey"
+                  : "#3da58a",
+            }}
+          >
+            {access === "Admin" && (
+              <AdminPanelSettingsOutlined
+                sx={{ color: "#fff" }}
+                fontSize="small"
+              />
+            )}
+            {access === "Manager" && (
+              <SecurityOutlined sx={{ color: "#fff" }} fontSize="small" />
+            )}
+            {access === "Company" && (
+              <BusinessCenter
+                sx={{ color: "#fff", fontSize: "18px" }}
+                fontSize="small"
+              />
+            )}
+            {access === "User" && (
+              <LockOpenOutlined sx={{ color: "#fff" }} fontSize="small" />
+            )}
+            <Typography sx={{ fontSize: "13px", color: "#fff" }}>
+              {access}
+            </Typography>
+          </Box>
+          <AdminPanelSettingsOutlined sx={{ color: "#fff" }} fontSize="small" />
+        </>
       ),
     },
     {
       field: "action",
       headerName: "Action",
-      width: 200, // زيادة عرض العمود
+      width: 200,
       align: "center",
       headerAlign: "center",
       renderCell: ({ row }) => (

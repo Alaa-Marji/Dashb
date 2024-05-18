@@ -42,13 +42,18 @@ function PasswordResetComponent() {
           <ResetPassword code={code} onSubmit={handlePasswordSubmit} />
         )}
         {activeStep === 3 && (
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center", marginTop: "0" }}>
             <h2>Password Reset Successful!</h2>
             <p>You can now login with your new password.</p>
-            <a href="/login">Login</a>
+            <a
+              href="/login"
+              style={{ textDecoration: "none", marginLeft: "2px" }}
+            >
+              Login
+            </a>
           </div>
         )}
-        <div style={{ marginTop: "60px" }}>
+        <div style={{ marginTop: "15px" }}>
           <Stepper activeStep={activeStep} alternativeLabel>
             {["Email", "Code", "Change Password"].map((label) => (
               <Step key={label}>

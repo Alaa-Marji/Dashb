@@ -11,10 +11,11 @@ import List from "@mui/material/List";
 import { Avatar, Typography, styled, useTheme } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import PropTypes from "prop-types";
-import "../Pages/Auth/Logout.css";
+
 import Logout from "../Pages/Auth/Logout";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import {
+  AddTask,
   BarChartOutlined,
   BlockOutlined,
   ContactsOutlined,
@@ -22,6 +23,7 @@ import {
   LoginOutlined,
   ManageAccountsOutlined,
   PeopleOutlined,
+  PersonAddAlt,
   PieChartOutlineOutlined,
   ReportProblemOutlined,
   TimelineOutlined,
@@ -54,6 +56,7 @@ const closedMixin = (theme) => ({
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
+  // @ts-ignore
 })(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
@@ -85,9 +88,8 @@ const Array1 = [
     icon: <PeopleOutlined />,
     path: "/Team",
     subItems: [
-      { text: "Roles", path: "/roles" },
-      { text: "Prem", path: "/prem" },
-      { text: "Add Emp", path: "/add-emp" },
+      { text: "Roles", path: "/Roles" },
+      { text: "Add Employee", path: "/AddEmployee" },
     ],
   },
 ];
@@ -111,11 +113,44 @@ const Array5 = [
   { text: "Line Chart", icon: <TimelineOutlined />, path: "/LineChart" },
 ];
 
+const DenseMenu = ({ handleClose }) => {
+  return (
+    <>
+      <ListItem
+        disablePadding
+        sx={{ display: "block", justifyContent: "center", textAlign: "center" }}
+      >
+        <ListItemButton onClick={() => handleClose("/Roles")}>
+          <ListItemIcon>
+            <AddTask />
+          </ListItemIcon>
+          <ListItemText primary="Roles" />
+        </ListItemButton>
+      </ListItem>
+      <ListItem
+        disablePadding
+        sx={{ display: "block", justifyContent: "center", textAlign: "center" }}
+      >
+        <ListItemButton onClick={() => handleClose("/AddEmployee")}>
+          <ListItemIcon>
+            <PersonAddAlt />
+          </ListItemIcon>
+
+          <ListItemText primary="AddEmployee" />
+        </ListItemButton>
+      </ListItem>
+    </>
+  );
+};
+
 export default function SideBar({ open, handleDrawerClose }) {
   let location = useLocation();
   const theme = useTheme();
   const navigate = useNavigate();
-
+  const [denseMenuVisible, setDenseMenuVisible] = useState(false);
+  const toggleDenseMenu = () => {
+    setDenseMenuVisible(!denseMenuVisible);
+  };
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
@@ -164,13 +199,16 @@ export default function SideBar({ open, handleDrawerClose }) {
           <ListItem key={item.path} disablePadding sx={{ display: "block" }}>
             <ListItemButton
               onClick={() => {
-                navigate(item.path);
+                if (item.subItems) {
+                  toggleDenseMenu(); // Toggle the dense menu
+                } else {
+                  navigate(item.path);
+                }
               }}
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
-
                 bgcolor:
                   location.pathname === item.path
                     ? theme.palette.mode === "dark"
@@ -196,6 +234,18 @@ export default function SideBar({ open, handleDrawerClose }) {
           </ListItem>
         ))}
       </List>
+      {denseMenuVisible && (
+        <List>
+          <DenseMenu
+            handleClose={(path) => {
+              // Close the dense menu and navigate to the selected path
+              setDenseMenuVisible(false);
+              navigate(path);
+            }}
+          />
+        </List>
+      )}
+
       <Divider />
       <List>
         {Array3.map((item) => (

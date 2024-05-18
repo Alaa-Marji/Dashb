@@ -1,3 +1,3 @@
 export default function ContractRequests() {
-  return <div>Companies Registration</div>;
+  return <div>ContractRequests</div>;
 }

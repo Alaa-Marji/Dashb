@@ -1,4 +1,4 @@
-import axios from "axios"; // added import
+import axios from "axios";
 import { useState } from "react";
 import { LOG, baseURL } from "../../Api/Api";
 import Loading from "../Loading/loading";
@@ -7,11 +7,10 @@ import "./css/components/alert.css";
 import "./css/components/button.css";
 import "./css/components/form.css";
 import "./css/components/Loading.css";
-import { Box, Button, Modal } from "@mui/material"; // added Box import
-
+import { Box, Button, Modal, Fade } from "@mui/material";
 import PasswordResetComponent from "../Auth/ForgetPassword/Forget";
-
 import { useNavigate } from "react-router-dom";
+import Cookie from "cookie-universal";
 
 export default function Login() {
   // States
@@ -21,8 +20,11 @@ export default function Login() {
   });
 
   const [oLoading, setLoading] = useState(false);
-  const [err, setErr] = useState("");
+  const [erro, setErro] = useState("");
   const navigate = useNavigate();
+
+  //Cookie
+  const cookie = Cookie();
 
   // Modal state and functions
   const [open, setOpen] = useState(false);
@@ -40,93 +42,77 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await axios.post(`${baseURL}/${LOG}`, form);
+      const response = await axios.post(`${baseURL}/${LOG}`, form);
+      const token = response.data.token;
+      console.log(token);
+      cookie.set("Accept", token);
       setLoading(false);
-      //replace true delete path and show last path
-      navigate("/dash", { replace: true });
+
+      // Replace true delete path and show last path
+      // navigate("/", { replace: true });
     } catch (err) {
       setLoading(false);
       if (err.response === 401) {
-        setErr("Wrong Email Or Password");
+        setErro("Wrong Email Or Password");
       } else {
-        setErr("Internal Server Error");
+        setErro("Internal Server Error");
       }
     }
   }
 
   return (
     <>
-      {oLoading && <Loading></Loading>}
-      <div className="co">
-        <div className="row h-100">
-          <form className="form" onSubmit={handleSubmit}>
-            <div className="custom-form">
-              <h1>Login Now</h1>
-              <div className="mb-3">
-                <label htmlFor="login">Email/Username:</label>
-                <div className="input-field">
-                  <input
-                    id="login"
-                    type="text"
-                    value={form.login}
-                    placeholder="Enter Your Email.."
-                    onChange={handleChange}
-                    name="login"
-                    required
-                    minLength={2}
-                  ></input>
-                </div>
+      {oLoading && <Loading />}
+
+      <div className=" co row h-100 d-flex justify-content-center align-items-center">
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="custom-form">
+            <h1>Login Now</h1>
+            <div className="mb-3">
+              <label htmlFor="login">Email/Username:</label>
+              <div className="input-field">
+                <input
+                  id="login"
+                  type="text"
+                  value={form.login}
+                  placeholder="Enter Your Email.."
+                  onChange={handleChange}
+                  name="login"
+                  required
+                  minLength={2}
+                  className="input-email"
+                />
               </div>
-              <div className="mb-3">
-                <label htmlFor="password">Password:</label>
-                <div className="input-field">
-                  <input
-                    id="password"
-                    type="password"
-                    value={form.password}
-                    placeholder="Enter Your Password.."
-                    onChange={handleChange}
-                    name="password"
-                    required
-                    minLength={6}
-                  ></input>
-                </div>
-                <div>
-                  <Button onClick={handleOpen}>Forget Password?</Button>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style}>
-                      {" "}
-                      {/* Apply style here */}
-                      <PasswordResetComponent />
-                    </Box>
-                  </Modal>
-                </div>
-              </div>
-              <button className="btn btn-primary">Submit</button>
-              {err !== "" && <span className="err">{err}</span>}
             </div>
-          </form>
-        </div>
+            <div className="mb-3">
+              <label htmlFor="password">Password:</label>
+              <div className="input-field">
+                <input
+                  id="password"
+                  type="password"
+                  value={form.password}
+                  placeholder="Enter Your Password.."
+                  onChange={handleChange}
+                  name="password"
+                  required
+                  minLength={6}
+                  className="input-email"
+                />
+              </div>
+              <Button onClick={handleOpen}>Forget Password?</Button>
+              <Modal className="modal " open={open} onClose={handleClose}>
+                <Fade in={open}>
+                  <Box className="modal-box modal-animation">
+                    <PasswordResetComponent />
+                  </Box>
+                </Fade>
+              </Modal>
+            </div>
+            <button className="btn btn-primary">Submit</button>
+            {erro !== "" && <span className="err">{erro}</span>}
+          </div>
+        </form>
       </div>
     </>
   );
 }
-
-// Modal style
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 500,
-  height: 300,
-  bgcolor: "background.paper",
-  borde: "2px solid #",
-  boxShadow: "0 0 20px rgba(189, 181, 181, 0.856)",
-  p: 4,
-};

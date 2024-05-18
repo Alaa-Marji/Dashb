@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { RESETPASSWORD, baseURL } from "../../../Api/Api";
+import "../css/components/form.css";
 
 function ResetPassword({ onSubmit, code }) {
   const [password, setPassword] = useState("");
@@ -18,13 +19,12 @@ function ResetPassword({ onSubmit, code }) {
           password_confirmation,
         });
         if (response.status === 200) {
-          onSubmit(password, password_confirmation); // Move to the next step
+          onSubmit(password, password_confirmation);
         } else {
-          // Handle other status codes if necessary
+          //
         }
       } catch (error) {
         console.log(error);
-        // Handle error
       }
     } else {
       alert("Passwords do not match!");
@@ -32,34 +32,27 @@ function ResetPassword({ onSubmit, code }) {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "250px" }}>
-      <h2 style={{ marginBottom: "2px" }}>Enter Password</h2>
-      <p style={{ marginBottom: "2px" }}>
-        Please enter your password and confirm it below:
-      </p>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ marginRight: "10px", marginBottom: "6px" }}
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={password_confirmation}
-          onChange={(e) => setPassword_confirmation(e.target.value)}
-          style={{ marginRight: "10px", marginBottom: "5px" }}
-        />
-        <button
-          type="submit"
-          style={{ marginRight: "10px", marginBottom: "6px" }}
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+    <form className="reset" onSubmit={handleSubmit}>
+      <h2>Enter Password</h2>
+      <p>Please enter your password and confirm it below:</p>
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        className="mb-3 input"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        className="mb-3 input"
+        value={password_confirmation}
+        onChange={(e) => setPassword_confirmation(e.target.value)}
+      />
+      <button type="submit" className=" btn btn-primary">
+        Submit
+      </button>
+    </form>
   );
 }
 

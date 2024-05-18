@@ -25,50 +25,23 @@ function EmailInputForm({ onSubmit }) {
   }
 
   return (
-    <div>
-      <div
-        className="form-email"
-        style={{ display: "flex", flexDirection: "column" }}
-      >
-        <form onSubmit={handleSubmit}>
-          <h3 style={{ marginTop: "0px", marginLeft: "150px" }}>
-            Enter Your Email:
-          </h3>
-          <label
-            style={{
-              marginTop: "0px",
-              marginLeft: "99px",
-              marginBottom: "40px",
-            }}
-          >
-            We Will Send Code Co Your Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder=" Email"
-          />
-          <br></br>
-          <button
-            style={{
-              background: "#3585a5",
-              color: "white",
-              fontSize: "15px",
-              cursor: "pointer",
-              marginLeft: "150px",
-              marginTop: "50px",
-            }}
-          >
-            Submit
-          </button>
-          {err !== "" && <span className="err">{err}</span>}
-        </form>
-      </div>
-    </div>
+    <form className="forma" onSubmit={handleSubmit}>
+      <h2>Enter Your Email:</h2>
+      <label>We Will Send Code Co Your Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        className="input"
+        value={email}
+        required
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder=" Email"
+      />
+      <br></br>
+      <button className=" btn btn-primary">Submit</button>
+      {err !== "" && <span className="err">{err}</span>}
+    </form>
   );
 }
 
